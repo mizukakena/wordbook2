@@ -51,7 +51,7 @@ export default function Home() {
       </section>
 
       <WordbookList />
-    </main>
+    </main> //
   )
 }
 

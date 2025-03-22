@@ -26,6 +26,9 @@ jobs:
           cache: "npm"
           cache-dependency-path: "./frontend/package-lock.json"
 
+      - name: Install Jest environment
+        run: npm install --save-dev jest-environment-jsdom
+
       - name: Install dependencies
         run: npm ci
 

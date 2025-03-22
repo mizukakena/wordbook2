@@ -1,6 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Heading,
+  Text,
+  UnorderedList,
+  ListItem,
+  Spinner,
+  Alert,
+  AlertIcon,
+} from "@chakra-ui/react";
 
 // Wordbook型の定義
 interface Wordbook {
@@ -48,28 +58,39 @@ const WordbookList: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div>読み込み中...</div>;
+    return (
+      <Box textAlign="center" py={4}>
+        <Spinner />
+      </Box>
+    );
   }
 
   if (error) {
-    return <div>エラーが発生しました: {error}</div>;
+    return (
+      <Alert status="error">
+        <AlertIcon />
+        エラーが発生しました: {error}
+      </Alert>
+    );
   }
 
   return (
-    <div>
-      <h1>単語帳一覧</h1>
+    <Box>
+      <Heading as="h1" mb={4}>
+        単語帳一覧
+      </Heading>
       {wordbooks.length > 0 ? (
-        <ul>
+        <UnorderedList>
           {wordbooks.map((wordbook, index) => (
-            <li key={index}>
+            <ListItem key={index}>
               {wordbook.wordbook_name} ({wordbook.num_of_words}単語)
-            </li>
+            </ListItem>
           ))}
-        </ul>
+        </UnorderedList>
       ) : (
-        <p>単語帳がありません。新しい単語帳を追加してください。</p>
+        <Text>単語帳がありません。新しい単語帳を追加してください。</Text>
       )}
-    </div>
+    </Box>
   );
 };
 

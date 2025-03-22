@@ -5,6 +5,7 @@ import (
 	"wordbook2/config"
 	"wordbook2/handlers"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,10 +14,13 @@ func main() {
 	// Create a new Gin router
 	r := gin.Default()
 
-	r.LoadHTMLGlob("templates/*")
+	// CORS追加
+	r.Use(cors.Default())
+	// r.LoadHTMLGlob("templates/*")
+	r.Static("/static", ".frontend/build")
 
 	// Define a simple GET route
-	r.GET("/", handlers.HomeHandler)
+	// r.GET("/", handlers.HomeHandler)
 	r.GET("/get-wordbooks", handlers.GetWordbooks)
 	r.GET("/user", handlers.UserHandler)
 	r.GET("/vocab", handlers.VocabHandler)

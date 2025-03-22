@@ -1,38 +1,30 @@
-// src/app/page.tsx
-import {
-  Container,
-  Heading,
-  Text,
-  Box,
-  Button,
-  VStack,
-} from "@chakra-ui/react";
-import Link from "next/link";
+// app/page.tsx
+"use client";
+
+import { useState } from "react";
+import WordbookList from "@/components/WordbookList";
+import AddWordbook from "@/components/AddWordbook";
 
 export default function Home() {
-  return (
-    <Container maxW="container.md" py={8}>
-      <VStack gap={4} align="stretch">
-        <Heading as="h1" size="xl">
-          Welcome to My Go Web Application!
-        </Heading>
-        <Text>This page is rendered using Next.js.</Text>
-        <Text>These are the wordbook you have.</Text>
+  const [refreshKey, setRefreshKey] = useState(0);
 
-        <Box textAlign="right" mt={4}>
-          <Link href="/add-wordbook">
-            <Button
-              colorScheme="blue"
-              size="sm"
-              borderRadius="full"
-              width="40px"
-              height="40px"
-            >
-              +
-            </Button>
-          </Link>
-        </Box>
-      </VStack>
-    </Container>
+  // 単語帳が追加されたときにリストを更新する
+  const handleWordbookAdded = () => {
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
+
+  return (
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">単語帳アプリ</h1>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        <div>
+          <WordbookList key={refreshKey} />
+        </div>
+        <div>
+          <AddWordbook onWordbookAdded={handleWordbookAdded} />
+        </div>
+      </div>
+    </main>
   );
 }

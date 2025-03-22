@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
-    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/react": "^2.10.7",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "framer-motion": "^12.5.0",
@@ -28,7 +28,7 @@
     "@testing-library/react": "^16.2.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/react": "^19.0.12",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",

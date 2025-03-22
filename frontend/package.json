@@ -9,11 +9,9 @@
     "lint": "next lint",
     "test": "jest"
   },
-
   "jest": {
     "testEnvironment": "jsdom"
   },
-
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.2",

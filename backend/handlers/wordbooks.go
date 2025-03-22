@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"bytes"
 	"context"
+	"io"
 	"log"
 	"net/http"
 	"wordbook2/config"
@@ -24,27 +26,45 @@ func WordbookIndex(c *gin.Context) {
 
 // ✅ Handle form submission and save the wordbook
 func SaveWordbook(c *gin.Context) {
-	var req SaveWordbookRequest
+    var req SaveWordbookRequest
 
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+    // リクエストボディのログ出力（デバッグ用）
+    body, _ := io.ReadAll(c.Request.Body)
+    c.Request.Body = io.NopCloser(bytes.NewBuffer(body))
+    log.Printf("Request body: %s", string(body))
 
-	_, err := config.DB.Exec(context.Background(),
-		"INSERT INTO wordbook (wordbook_name, num_of_words) VALUES ($1, 0)",
-		req.WordbookName,
-	)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to insert wordbook"})
-		return
-	}
+    if err := c.ShouldBindJSON(&req); err != nil {
+        log.Printf("❌ JSON binding error: %v", err)
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
 
-	// Return success JSON
-	c.JSON(http.StatusOK, gin.H{
-		"message":       "Wordbook added successfully",
-		"wordbook_name": req.WordbookName,
-	})
+    log.Printf("✅ Received request to save wordbook: %s", req.WordbookName)
+
+    // user_emailの処理（一時的に固定値を使用）
+    userEmail := "test@example.com" // テスト用の固定値
+
+    // SQLクエリの実行
+    _, err := config.DB.Exec(context.Background(),
+        "INSERT INTO wordbook (wordbook_name, user_email, num_of_words) VALUES ($1, $2, 0)",
+        req.WordbookName, userEmail,
+    )
+    if err != nil {
+        log.Printf("❌ Database error: %v", err)
+        c.JSON(http.StatusInternalServerError, gin.H{
+            "error": "Failed to insert wordbook",
+            "detail": err.Error(),
+        })
+        return
+    }
+
+    log.Println("✅ Wordbook added successfully")
+
+    // 成功レスポンス
+    c.JSON(http.StatusOK, gin.H{
+        "message":       "Wordbook added successfully",
+        "wordbook_name": req.WordbookName,
+    })
 }
 
 func GetWordbooks(c *gin.Context) {

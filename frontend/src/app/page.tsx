@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
+"user.client";
+
 export default function Home() {
   return (
     <Container maxW="container.md" py={8}>

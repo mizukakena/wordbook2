@@ -17,11 +17,6 @@ func WordbookHandler(c *gin.Context) {
 	c.String(200, "This is the wordbook controller.")
 }
 
-// ✅ Show the "Add Wordbook" page
-func WordbookIndex(c *gin.Context) {
-	c.HTML(200, "addWordbook.html", gin.H{})
-}
-
 // ✅ Handle form submission and save the wordbook
 func SaveWordbook(c *gin.Context) {
 	var req SaveWordbookRequest

@@ -17,6 +17,7 @@ func main() {
 
 	// Define a simple GET route
 	r.GET("/", handlers.HomeHandler)
+	r.GET("/get-wordbooks", handlers.GetWordbooks)
 	r.GET("/user", handlers.UserHandler)
 	r.GET("/vocab", handlers.VocabHandler)
 	r.GET("/wordbook", handlers.WordbookHandler)

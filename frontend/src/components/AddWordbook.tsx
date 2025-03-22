@@ -32,8 +32,8 @@ const AddWordbook: React.FC<AddWordbookProps> = ({ onWordbookAdded }) => {
       }
 
       const data = await response.json();
-      setSuccess("単語帳が正常に追加されました");
-      setWordbookName("");
+      console.log("Success response:", data);
+      setSuccess(`単語帳「${data.wordbook_name}」が正常に追加されました`);
 
       // 親コンポーネントに通知
       if (onWordbookAdded) {

@@ -1,10 +1,9 @@
 package handlers
 
 import (
-	"Hackathon3-22/config"
-	"context"
-	"log"
 	"net/http"
+	"wordbook2/config"
+	"wordbook2/models"
 
 	"github.com/gin-gonic/gin"
 )

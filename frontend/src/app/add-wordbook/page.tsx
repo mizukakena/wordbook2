@@ -66,7 +66,7 @@ export default function AddWordbook() {
       </Heading>
 
       <Box as="form" onSubmit={handleSubmit}>
-        <VStack spacing={4} align="stretch">
+        <VStack gap={4} align="stretch">
           <FormControl isRequired>
             <FormLabel>タイトル</FormLabel>
             <Input

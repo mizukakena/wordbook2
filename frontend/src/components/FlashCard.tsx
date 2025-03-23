@@ -115,8 +115,8 @@ const FlashCard: React.FC<FlashCardProps> = ({ wordbook }) => {
   }
 
   return (
-    <Box p={4} borderWidth={1} borderRadius="lg">
-      <Heading as="h2" size="md" mb={4}>
+    <Box p={4} borderWidth={1} borderRadius="lg" backgroundColor="#eee">
+      <Heading as="h2" size="md" mb={4} color="#000">
         フラッシュカード: {wordbook.wordbook_name} (ID: {wordbook.id})
       </Heading>
 
@@ -172,7 +172,9 @@ const FlashCard: React.FC<FlashCardProps> = ({ wordbook }) => {
               <Text mb={4} color="red.500">
                 {error}
               </Text>
-              <Text>「単語を追加」タブから単語を登録してください。</Text>
+              <Text color="#000">
+                「単語を追加」タブから単語を登録してください。
+              </Text>
               <Box mt={4} p={2} bg="gray.100" borderRadius="md">
                 <Code fontSize="sm">
                   デバッグ情報: Wordbook ID: {wordbook.id}
@@ -182,7 +184,9 @@ const FlashCard: React.FC<FlashCardProps> = ({ wordbook }) => {
           ) : (
             <>
               <Text mb={4}>この単語帳にはまだ単語がありません。</Text>
-              <Text>「単語を追加」から単語を登録してください。</Text>
+              <Text color="#000">
+                「単語を追加」から単語を登録してください。
+              </Text>
             </>
           )}
           <Button mt={4} onClick={fetchRandomWord} colorScheme="blue" size="sm">

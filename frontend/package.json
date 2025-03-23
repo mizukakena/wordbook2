@@ -17,6 +17,8 @@
     "@chakra-ui/react": "^2.10.7",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource-variable/oswald": "^5.2.5",
+    "@fontsource/montserrat": "^5.2.5",
     "framer-motion": "^12.5.0",
     "frontend": "file:",
     "lucide-react": "^0.483.0",

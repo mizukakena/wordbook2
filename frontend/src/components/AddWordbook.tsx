@@ -70,15 +70,25 @@ const AddWordbook: React.FC<AddWordbookProps> = ({ onWordbookAdded }) => {
   };
 
   return (
-    <Box p={4} borderWidth={1} borderRadius="lg">
-      <Heading as="h2" size="md" mb={4}>
+    <Box
+      p={4}
+      borderWidth={1}
+      borderRadius="lg"
+      backgroundColor="#fff"
+      width="80%"
+      justifySelf="center"
+    >
+      <Heading as="h2" size="md" mb={4} color="#000">
         新しい単語帳を追加
       </Heading>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4} align="stretch">
           <FormControl isRequired>
-            <FormLabel htmlFor="wordbookName">単語帳名:</FormLabel>
+            <FormLabel htmlFor="wordbookName" color="#000">
+              単語帳名:
+            </FormLabel>
             <Input
+              color="#000"
               id="wordbookName"
               value={wordbookName}
               onChange={(e) => setWordbookName(e.target.value)}

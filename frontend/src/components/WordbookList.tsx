@@ -90,11 +90,34 @@ const WordbookList: React.FC<WordbookListProps> = ({ onSelectWordbook }) => {
 
   return (
     <Box>
-      <Heading as="h2" size="md" mb={4}>
+      <Heading as="h2" size="md" mb={4} textAlign="center">
         単語帳一覧
       </Heading>
       {wordbooks.length > 0 ? (
-        <UnorderedList></UnorderedList>
+        <UnorderedList styleType="none" ml={0}>
+          {wordbooks.map((wordbook) => (
+            <ListItem key={wordbook.id} mb={2} textAlign="center">
+              <Button
+                height="100px"
+                backgroundColor={"#fff"}
+                variant="outline"
+                justifyContent="space-between"
+                width="80%"
+                onClick={() => handleWordbookClick(wordbook)}
+                py={3}
+                px={4}
+                textAlign="left"
+                fontWeight="normal"
+                _hover={{ bg: "blue.50" }}
+              >
+                <Text>{wordbook.wordbook_name}</Text>
+                <Text fontSize="sm" color="gray.500">
+                  {wordbook.num_of_words}単語
+                </Text>
+              </Button>
+            </ListItem>
+          ))}
+        </UnorderedList>
       ) : (
         <Text>単語帳がありません。新しい単語帳を追加してください。</Text>
       )}

@@ -1,11 +1,15 @@
 // src/app/layout.tsx
-import { ChakraProvider } from "@chakra-ui/react";
-// import type { Metadata } from "next";
+"use client";
 
-// export const metadata: Metadata = {
-//   title: "Wordbook App",
-//   description: "A wordbook application",
-// };
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import "@fontsource-variable/oswald";
+
+const theme = extendTheme({
+  fonts: {
+    heading: "'Oswald Variable', sans-serif",
+    body: "'Oswald Variable', sans-serif",
+  },
+});
 
 export default function RootLayout({
   children,
@@ -13,10 +17,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja">
-      <body>
-        <ChakraProvider cssVarsRoot="body">{children}</ChakraProvider>
-      </body>
-    </html>
+    <ChakraProvider theme={theme}>
+      <html lang="ja">
+        <body style={{ backgroundColor: "#0D243D", color: "#fff" }}>
+          {children}
+        </body>
+      </html>
+    </ChakraProvider>
   );
 }

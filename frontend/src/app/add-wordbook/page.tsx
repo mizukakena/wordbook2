@@ -70,6 +70,7 @@ export default function AddWordbook() {
           <FormControl isRequired>
             <FormLabel>タイトル</FormLabel>
             <Input
+              color="#000"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="単語帳のタイトル"
@@ -79,6 +80,7 @@ export default function AddWordbook() {
           <FormControl>
             <FormLabel>説明</FormLabel>
             <Input
+              color="#000"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="単語帳の説明（任意）"

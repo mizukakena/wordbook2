@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"wordbook2/config"
 	"wordbook2/handlers"
 
@@ -11,7 +12,7 @@ import (
 
 func main() {
 	config.ConnectDatabase()
-	// Create a new Gin router
+
 	r := gin.Default()
 
 	// CORS追加
@@ -25,7 +26,7 @@ func main() {
 	r.GET("/user", handlers.UserHandler)
 	r.GET("/vocab", handlers.VocabHandler)
 	r.GET("/wordbook", handlers.WordbookHandler)
-	r.GET("/add-wordbook", handlers.WordbookIndex)
+	r.DELETE("/api/delete-wordbook/:name", handlers.DeleteWordbook)
 	r.POST("/save-wordbook", handlers.SaveWordbook)
 	
 	// 単語関連のエンドポイントを追加
@@ -37,10 +38,7 @@ func main() {
 	// AI生成関連のエンドポイントは必要になったら追加する
 	// r.POST("/generate-words", handlers.GenerateWords)
 
-	// Start the server on port 8080
-	fmt.Println("Server started at http://localhost:8080")
-	if err := r.Run(":8080"); err != nil { // This starts the HTTP server
-		fmt.Printf("Failed to start server: %v\n", err)
-	}
+	fmt.Println("Go API server started at http://localhost:8080")
+	log.Fatal(r.Run(":8080"))
 }
 

@@ -1,13 +1,14 @@
 "use client";
 
+import { ListItem } from "@chakra-ui/react";
 import type React from "react";
 import { useState, useEffect } from "react";
+
 import {
   Box,
   Heading,
   Text,
   UnorderedList,
-  ListItem,
   Spinner,
   Alert,
   AlertIcon,
@@ -120,8 +121,72 @@ const WordbookList: React.FC<WordbookListProps> = ({ onSelectWordbook }) => {
       ) : (
         <Text>単語帳がありません。新しい単語帳を追加してください。</Text>
       )}
+
+      {wordbooks.map((wordbook, index) => (
+        <ListItem key={index}>
+          {wordbook.wordbook_name} ({wordbook.num_of_words}単語)
+
+          <button
+            className="bg-red-500 text-white py-1 px-2 ml-2 rounded hover:bg-red-600"
+            onClick={() => handleDelete(wordbook.wordbook_name)}
+          >
+            削除
+          </button>
+
+          <UnorderedList styleType="none" ml={0}>
+            {wordbooks.map((wordbook) => (
+              <ListItem key={wordbook.id} mb={2}>
+                <Button
+                  variant="outline"
+                  justifyContent="space-between"
+                  width="100%"
+                  onClick={() => handleWordbookClick(wordbook)}
+                  py={3}
+                  px={4}
+                  textAlign="left"
+                  fontWeight="normal"
+                  _hover={{ bg: "blue.50" }}
+                >
+                  <Text>{wordbook.wordbook_name}</Text>
+                  <Text fontSize="sm" color="gray.500">
+                    {wordbook.num_of_words}単語
+                  </Text>
+                </Button>
+              </ListItem>
+            ))}
+          </UnorderedList>
+        </ListItem>
+      ))}
     </Box>
   );
 };
+
+function handleDelete(wordbook_name: string) {
+  if (!confirm(`本当に "${wordbook_name}" を削除しますか？`)) {
+    return;
+  }
+
+  fetch(
+    `http://localhost:8080/api/delete-wordbook/${encodeURIComponent(
+      wordbook_name
+    )}`,
+    {
+      method: "DELETE",
+    }
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`削除失敗: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then(() => {
+      // Refresh the page after deletion
+      window.location.reload();
+    })
+    .catch((err) => {
+      alert("エラーが発生しました: " + err.message);
+    });
+}
 
 export default WordbookList;

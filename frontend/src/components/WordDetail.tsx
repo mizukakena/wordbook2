@@ -136,6 +136,7 @@ const WordDetail: React.FC<WordDetailProps> = ({ wordbook, onWordAdded }) => {
               単語:
             </FormLabel>
             <Input
+              color="#000"
               id="word"
               value={word}
               onChange={(e) => setWord(e.target.value)}
@@ -148,6 +149,7 @@ const WordDetail: React.FC<WordDetailProps> = ({ wordbook, onWordAdded }) => {
               意味:
             </FormLabel>
             <Input
+              color="#000"
               id="meaning"
               value={meaning}
               onChange={(e) => setMeaning(e.target.value)}

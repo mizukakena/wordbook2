@@ -115,7 +115,7 @@ const FlashCard: React.FC<FlashCardProps> = ({ wordbook }) => {
   }
 
   return (
-    <Box p={4} borderWidth={1} borderRadius="lg">
+    <Box p={4} borderWidth={1} borderRadius="lg" backgroundColor="#eee">
       <Heading as="h2" size="md" mb={4} color="#000">
         フラッシュカード: {wordbook.wordbook_name} (ID: {wordbook.id})
       </Heading>

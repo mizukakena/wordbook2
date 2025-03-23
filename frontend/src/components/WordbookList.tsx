@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import type React from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -10,10 +11,12 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  Button,
 } from "@chakra-ui/react";
 
 // Wordbook型の定義
-interface Wordbook {
+export interface Wordbook {
+  id: number; // IDを追加
   wordbook_name: string;
   num_of_words: number;
 }
@@ -24,7 +27,11 @@ interface ApiResponse {
   error?: string;
 }
 
-const WordbookList: React.FC = () => {
+interface WordbookListProps {
+  onSelectWordbook?: (wordbook: Wordbook) => void;
+}
+
+const WordbookList: React.FC<WordbookListProps> = ({ onSelectWordbook }) => {
   const [wordbooks, setWordbooks] = useState<Wordbook[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -57,6 +64,12 @@ const WordbookList: React.FC = () => {
       });
   }, []);
 
+  const handleWordbookClick = (wordbook: Wordbook) => {
+    if (onSelectWordbook) {
+      onSelectWordbook(wordbook);
+    }
+  };
+
   if (loading) {
     return (
       <Box textAlign="center" py={4}>
@@ -76,14 +89,29 @@ const WordbookList: React.FC = () => {
 
   return (
     <Box>
-      <Heading as="h1" mb={4}>
+      <Heading as="h2" size="md" mb={4}>
         単語帳一覧
       </Heading>
       {wordbooks.length > 0 ? (
-        <UnorderedList>
-          {wordbooks.map((wordbook, index) => (
-            <ListItem key={index}>
-              {wordbook.wordbook_name} ({wordbook.num_of_words}単語)
+        <UnorderedList styleType="none" ml={0}>
+          {wordbooks.map((wordbook) => (
+            <ListItem key={wordbook.id} mb={2}>
+              <Button
+                variant="outline"
+                justifyContent="space-between"
+                width="100%"
+                onClick={() => handleWordbookClick(wordbook)}
+                py={3}
+                px={4}
+                textAlign="left"
+                fontWeight="normal"
+                _hover={{ bg: "blue.50" }}
+              >
+                <Text>{wordbook.wordbook_name}</Text>
+                <Text fontSize="sm" color="gray.500">
+                  {wordbook.num_of_words}単語
+                </Text>
+              </Button>
             </ListItem>
           ))}
         </UnorderedList>

@@ -31,8 +31,11 @@ func main() {
 	// 単語関連のエンドポイントを追加
 	r.POST("/add-word", handlers.AddWord)
 	r.GET("/get-words", handlers.GetWords)
-	// main.go の既存のルート定義に以下を追加
 	r.GET("/get-random-word", handlers.GetRandomWord)
+	r.POST("/add-wordbook", handlers.SaveWordbook)
+	
+	// AI生成関連のエンドポイントは必要になったら追加する
+	// r.POST("/generate-words", handlers.GenerateWords)
 
 	// Start the server on port 8080
 	fmt.Println("Server started at http://localhost:8080")

@@ -12,7 +12,7 @@ var DB *pgx.Conn // Global variable for database connection
 
 func ConnectDatabase() {
 	// ✅ PostgreSQL Connection String: (adjust user/password as needed)
-	dsn := "postgres://postgres:Kouki%2F0202@localhost:5432/wordbook_db"
+	dsn := "postgres://yuma:yuma@localhost:5432/postgres?sslmode=disable"
 
 	// ✅ Connect to the database
 	conn, err := pgx.Connect(context.Background(), dsn)

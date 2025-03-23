@@ -1,6 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
+import {
+  Box,
+  Heading,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Alert,
+  AlertIcon,
+} from "@chakra-ui/react";
 
 interface AddWordbookProps {
   onWordbookAdded?: () => void; // 単語帳追加後に親コンポーネントに通知するためのコールバック
@@ -49,40 +59,48 @@ const AddWordbook: React.FC<AddWordbookProps> = ({ onWordbookAdded }) => {
   };
 
   return (
-    <div className="mt-6 p-4 border rounded-lg">
-      <h2 className="text-xl font-bold mb-4">新しい単語帳を追加</h2>
+    <Box mt={6} p={4} borderWidth={1} borderRadius="lg">
+      <Heading as="h2" size="md" mb={4}>
+        新しい単語帳を追加
+      </Heading>
+
       {error && (
-        <div className="p-2 mb-4 bg-red-100 text-red-700 rounded">{error}</div>
+        <Alert status="error" mb={4} borderRadius="md">
+          <AlertIcon />
+          {error}
+        </Alert>
       )}
+
       {success && (
-        <div className="p-2 mb-4 bg-green-100 text-green-700 rounded">
+        <Alert status="success" mb={4} borderRadius="md">
+          <AlertIcon />
           {success}
-        </div>
+        </Alert>
       )}
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="wordbook-name" className="block mb-1 font-medium">
-            単語帳名:
-          </label>
-          <input
+        <FormControl mb={4} isRequired>
+          <FormLabel htmlFor="wordbook-name">単語帳名:</FormLabel>
+          <Input
             id="wordbook-name"
             type="text"
             value={wordbookName}
             onChange={(e) => setWordbookName(e.target.value)}
-            className="w-full p-2 border rounded"
             required
           />
-        </div>
-        <button
+        </FormControl>
+
+        <Button
           type="submit"
-          disabled={loading}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300"
+          colorScheme="blue"
+          isLoading={loading}
+          loadingText="追加中..."
+          isDisabled={loading}
         >
-          {loading ? "追加中..." : "追加"}
-        </button>
+          追加
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

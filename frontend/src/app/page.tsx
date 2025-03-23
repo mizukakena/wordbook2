@@ -55,8 +55,8 @@ export default function Home() {
 
   return (
     <Container maxW="container.xl" px={4} py={8}>
-      <Heading as="h1" size="xl" mb={6}>
-        単語帳アプリ
+      <Heading as="h1" size="xl" mb={6} textAlign="center">
+        ⚡CARDS
       </Heading>
 
       <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={8}>
@@ -73,7 +73,7 @@ export default function Home() {
         </GridItem>
         <GridItem>
           {selectedWordbook && (
-            <Tabs colorScheme="blue" variant="enclosed">
+            <Tabs colorScheme="blue" variant="enclosed" backgroundColor="fff">
               <TabList>
                 <Tab>単語を追加</Tab>
                 <Tab>フラッシュカード</Tab>
@@ -93,8 +93,10 @@ export default function Home() {
           )}
 
           {!selectedWordbook && (
-            <Box p={4} borderWidth={1} borderRadius="lg">
-              <Text>左側の単語帳リストから単語帳を選択してください。</Text>
+            <Box p={4} borderWidth={1} borderRadius="lg" backgroundColor="#fff">
+              <Text color="#000">
+                左側の単語帳リストから単語帳を選択してください。
+              </Text>
             </Box>
           )}
         </GridItem>

@@ -89,17 +89,19 @@ const WordbookList: React.FC<WordbookListProps> = ({ onSelectWordbook }) => {
 
   return (
     <Box>
-      <Heading as="h2" size="md" mb={4}>
+      <Heading as="h2" size="md" mb={4} textAlign="center">
         単語帳一覧
       </Heading>
       {wordbooks.length > 0 ? (
         <UnorderedList styleType="none" ml={0}>
           {wordbooks.map((wordbook) => (
-            <ListItem key={wordbook.id} mb={2}>
+            <ListItem key={wordbook.id} mb={2} textAlign="center">
               <Button
+                height="100px"
+                backgroundColor={"#fff"}
                 variant="outline"
                 justifyContent="space-between"
-                width="100%"
+                width="80%"
                 onClick={() => handleWordbookClick(wordbook)}
                 py={3}
                 px={4}

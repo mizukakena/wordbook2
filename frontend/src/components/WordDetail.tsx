@@ -116,8 +116,8 @@ const WordDetail: React.FC<WordDetailProps> = ({ wordbook, onWordAdded }) => {
   };
 
   return (
-    <Box p={4} borderWidth={1} borderRadius="lg">
-      <Heading as="h2" size="md" mb={2}>
+    <Box p={4} borderWidth={1} borderRadius="lg" backgroundColor="#fff">
+      <Heading as="h2" size="md" mb={2} color="#000">
         {wordbook.wordbook_name} (ID: {wordbook.id})
       </Heading>
       <Text mb={4} color="gray.600">
@@ -125,14 +125,16 @@ const WordDetail: React.FC<WordDetailProps> = ({ wordbook, onWordAdded }) => {
       </Text>
       <Divider my={4} />
 
-      <Heading as="h3" size="sm" mb={4}>
+      <Heading as="h3" size="sm" mb={4} color="#000">
         新しい単語を追加
       </Heading>
 
       <form onSubmit={handleSubmit}>
         <VStack spacing={4} align="stretch">
           <FormControl isRequired>
-            <FormLabel htmlFor="word">単語:</FormLabel>
+            <FormLabel htmlFor="word" color="#000">
+              単語:
+            </FormLabel>
             <Input
               id="word"
               value={word}
@@ -142,7 +144,9 @@ const WordDetail: React.FC<WordDetailProps> = ({ wordbook, onWordAdded }) => {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel htmlFor="meaning">意味:</FormLabel>
+            <FormLabel htmlFor="meaning" color="#000">
+              意味:
+            </FormLabel>
             <Input
               id="meaning"
               value={meaning}

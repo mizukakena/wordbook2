@@ -28,7 +28,14 @@ func main() {
 	r.GET("/wordbook", handlers.WordbookHandler)
 	r.DELETE("/api/delete-wordbook/:name", handlers.DeleteWordbook)
 	r.POST("/save-wordbook", handlers.SaveWordbook)
+	
+	// 単語関連のエンドポイントを追加
+	r.POST("/add-word", handlers.AddWord)
+	r.GET("/get-words", handlers.GetWords)
+	// main.go の既存のルート定義に以下を追加
+	r.GET("/get-random-word", handlers.GetRandomWord)
 
 	fmt.Println("Go API server started at http://localhost:8080")
 	log.Fatal(r.Run(":8080"))
 }
+

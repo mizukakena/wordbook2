@@ -1,5 +1,6 @@
 "use client";
 
+import { ListItem } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 
 // Wordbook型の定義
@@ -61,7 +62,7 @@ const WordbookList: React.FC = () => {
       {wordbooks.length > 0 ? (
         <ul>
           {wordbooks.map((wordbook, index) => (
-            <li key={index}>
+            <ListItem key={index}>
               {wordbook.wordbook_name} ({wordbook.num_of_words}単語)
               
               <button
@@ -71,7 +72,7 @@ const WordbookList: React.FC = () => {
                 削除
               </button>
               
-            </li>
+            </ListItem>
           ))}
         </ul>
       ) : (

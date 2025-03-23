@@ -5,8 +5,6 @@ import { useState } from "react";
 import WordbookList from "@/components/WordbookList";
 import AddWordbook from "@/components/AddWordbook";
 
-"user.client";
-
 export default function Home() {
   const [refreshKey, setRefreshKey] = useState(0);
 

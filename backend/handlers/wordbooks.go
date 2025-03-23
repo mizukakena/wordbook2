@@ -71,7 +71,7 @@ func GetWordbooks(c *gin.Context) {
 	log.Println("GetWordbooks() called...")
 
 	// 1) Try selecting from the actual table.
-	rows, err := config.DB.Query(context.Background(), "SELECT wordbook_name, num_of_words FROM public.wordbook")
+	rows, err := config.DB.Query(context.Background(), "SELECT id, wordbook_name, num_of_words FROM public.wordbook")
 	if err != nil {
 		log.Println("❌ Query error:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -87,14 +87,16 @@ func GetWordbooks(c *gin.Context) {
 	// 2) Scan the results
 	var wordbooks []map[string]interface{}
 	for rows.Next() {
+		var id int
 		var name string
 		var count int
-		if err := rows.Scan(&name, &count); err != nil {
+		if err := rows.Scan(&id, &name, &count); err != nil {
 			log.Println("❌ Error scanning row:", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error scanning row"})
 			return
 		}
 		wordbooks = append(wordbooks, map[string]interface{}{
+			"id":            id,
 			"wordbook_name": name,
 			"num_of_words":  count,
 		})
@@ -104,3 +106,4 @@ func GetWordbooks(c *gin.Context) {
 	// 3) Return JSON response
 	c.JSON(http.StatusOK, gin.H{"wordbooks": wordbooks})
 }
+

@@ -27,6 +27,12 @@ func main() {
 	r.GET("/wordbook", handlers.WordbookHandler)
 	r.GET("/add-wordbook", handlers.WordbookIndex)
 	r.POST("/save-wordbook", handlers.SaveWordbook)
+	
+	// 単語関連のエンドポイントを追加
+	r.POST("/add-word", handlers.AddWord)
+	r.GET("/get-words", handlers.GetWords)
+	// main.go の既存のルート定義に以下を追加
+	r.GET("/get-random-word", handlers.GetRandomWord)
 
 	// Start the server on port 8080
 	fmt.Println("Server started at http://localhost:8080")
@@ -34,3 +40,4 @@ func main() {
 		fmt.Printf("Failed to start server: %v\n", err)
 	}
 }
+

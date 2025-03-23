@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import {
   Box,
   Heading,
@@ -8,28 +9,25 @@ import {
   FormLabel,
   Input,
   Button,
-  Alert,
-  AlertIcon,
+  useToast,
+  VStack,
 } from "@chakra-ui/react";
 
 interface AddWordbookProps {
-  onWordbookAdded?: () => void; // 単語帳追加後に親コンポーネントに通知するためのコールバック
+  onWordbookAdded?: () => void;
 }
 
 const AddWordbook: React.FC<AddWordbookProps> = ({ onWordbookAdded }) => {
   const [wordbookName, setWordbookName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const toast = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
-    setSuccess(null);
 
     try {
-      const response = await fetch("http://localhost:8080/save-wordbook", {
+      const response = await fetch("http://localhost:8080/add-wordbook", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,62 +41,60 @@ const AddWordbook: React.FC<AddWordbookProps> = ({ onWordbookAdded }) => {
 
       const data = await response.json();
       console.log("Success response:", data);
-      setSuccess(`単語帳「${data.wordbook_name}」が正常に追加されました`);
 
-      // 親コンポーネントに通知
+      toast({
+        title: "単語帳を追加しました",
+        description: `「${wordbookName}」を追加しました`,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+
+      setWordbookName("");
+
       if (onWordbookAdded) {
         onWordbookAdded();
       }
     } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "不明なエラーが発生しました"
-      );
+      toast({
+        title: "エラーが発生しました",
+        description:
+          error instanceof Error ? error.message : "不明なエラーが発生しました",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Box mt={6} p={4} borderWidth={1} borderRadius="lg">
+    <Box p={4} borderWidth={1} borderRadius="lg">
       <Heading as="h2" size="md" mb={4}>
         新しい単語帳を追加
       </Heading>
-
-      {error && (
-        <Alert status="error" mb={4} borderRadius="md">
-          <AlertIcon />
-          {error}
-        </Alert>
-      )}
-
-      {success && (
-        <Alert status="success" mb={4} borderRadius="md">
-          <AlertIcon />
-          {success}
-        </Alert>
-      )}
-
       <form onSubmit={handleSubmit}>
-        <FormControl mb={4} isRequired>
-          <FormLabel htmlFor="wordbook-name">単語帳名:</FormLabel>
-          <Input
-            id="wordbook-name"
-            type="text"
-            value={wordbookName}
-            onChange={(e) => setWordbookName(e.target.value)}
-            required
-          />
-        </FormControl>
-
-        <Button
-          type="submit"
-          colorScheme="blue"
-          isLoading={loading}
-          loadingText="追加中..."
-          isDisabled={loading}
-        >
-          追加
-        </Button>
+        <VStack spacing={4} align="stretch">
+          <FormControl isRequired>
+            <FormLabel htmlFor="wordbookName">単語帳名:</FormLabel>
+            <Input
+              id="wordbookName"
+              value={wordbookName}
+              onChange={(e) => setWordbookName(e.target.value)}
+              placeholder="例: 英検準1級"
+            />
+          </FormControl>
+          <Button
+            type="submit"
+            colorScheme="blue"
+            isLoading={loading}
+            loadingText="追加中..."
+            isDisabled={loading || !wordbookName}
+          >
+            単語帳を追加
+          </Button>
+        </VStack>
       </form>
     </Box>
   );

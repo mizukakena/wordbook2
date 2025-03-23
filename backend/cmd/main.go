@@ -26,7 +26,7 @@ func main() {
 	r.GET("/user", handlers.UserHandler)
 	r.GET("/vocab", handlers.VocabHandler)
 	r.GET("/wordbook", handlers.WordbookHandler)
-	r.GET("/add-wordbook", handlers.WordbookIndex)
+	r.DELETE("/api/delete-wordbook/:name", handlers.DeleteWordbook)
 	r.POST("/save-wordbook", handlers.SaveWordbook)
 
 	fmt.Println("Go API server started at http://localhost:8080")

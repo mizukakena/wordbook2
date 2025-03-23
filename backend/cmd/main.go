@@ -15,16 +15,19 @@ func main() {
 
 	r := gin.Default()
 
-	// CORS for frontend
-	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:3000"},
-		AllowMethods: []string{"GET", "POST", "OPTIONS"},
-		AllowHeaders: []string{"Content-Type"},
-	}))
+	// CORS追加
+	r.Use(cors.Default())
+	// r.LoadHTMLGlob("templates/*")
+	r.Static("/static", ".frontend/build")
 
-	// Only JSON API endpoints
-	r.GET("/api/get-wordbooks", handlers.GetWordbooks)
-	r.POST("/api/save-wordbook", handlers.SaveWordbook)
+	// Define a simple GET route
+	// r.GET("/", handlers.HomeHandler)
+	r.GET("/get-wordbooks", handlers.GetWordbooks)
+	r.GET("/user", handlers.UserHandler)
+	r.GET("/vocab", handlers.VocabHandler)
+	r.GET("/wordbook", handlers.WordbookHandler)
+	r.GET("/add-wordbook", handlers.WordbookIndex)
+	r.POST("/save-wordbook", handlers.SaveWordbook)
 
 	fmt.Println("Go API server started at http://localhost:8080")
 	log.Fatal(r.Run(":8080"))

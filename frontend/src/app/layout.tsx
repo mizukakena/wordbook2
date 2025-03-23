@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import { Providers } from "./providers";
+import { ChakraProvider } from "@chakra-ui/react";
 // import type { Metadata } from "next";
 
 // export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <Providers>{children}</Providers>
+        <ChakraProvider cssVarsRoot="body">{children}</ChakraProvider>
       </body>
     </html>
   );

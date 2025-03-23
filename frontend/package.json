@@ -20,6 +20,7 @@
     "framer-motion": "^12.5.0",
     "frontend": "file:",
     "next": "15.2.3",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
